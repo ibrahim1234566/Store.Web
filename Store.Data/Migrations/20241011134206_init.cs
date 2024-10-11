@@ -50,37 +50,35 @@ namespace Store.Data.Migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
-                    productBrandId = table.Column<int>(type: "int", nullable: false),
                     TypeId = table.Column<int>(type: "int", nullable: false),
-                    productTypeId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_productBrands_productBrandId",
-                        column: x => x.productBrandId,
+                        name: "FK_Products_productBrands_BrandId",
+                        column: x => x.BrandId,
                         principalTable: "productBrands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_productTypes_productTypeId",
-                        column: x => x.productTypeId,
+                        name: "FK_Products_productTypes_TypeId",
+                        column: x => x.TypeId,
                         principalTable: "productTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_productBrandId",
+                name: "IX_Products_BrandId",
                 table: "Products",
-                column: "productBrandId");
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_productTypeId",
+                name: "IX_Products_TypeId",
                 table: "Products",
-                column: "productTypeId");
+                column: "TypeId");
         }
 
         /// <inheritdoc />

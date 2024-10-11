@@ -17,15 +17,6 @@ namespace Store.Repository
         {
             try
             {
-                if(Context.productBrands!=null && !Context.productBrands.Any())
-                {
-                    var Data = File.ReadAllText("../Store.Repository/SeedData/brands.json");
-                    var brands = JsonSerializer.Deserialize<List<ProductBrand>>(Data);
-                    if (brands is not null)
-                    {
-                        await Context.productBrands.AddRangeAsync(brands);
-                    }
-                }
                 if (Context.productTypes != null && !Context.productTypes.Any())
                 {
                     var Data = File.ReadAllText("../Store.Repository/SeedData/types.json");
@@ -34,7 +25,19 @@ namespace Store.Repository
                     {
                         await Context.productTypes.AddRangeAsync(Types);
                     }
+                  
                 }
+                if (Context.productBrands!=null && !Context.productBrands.Any())
+                {
+                    var Data = File.ReadAllText("../Store.Repository/SeedData/brands.json");
+                    var brands = JsonSerializer.Deserialize<List<ProductBrand>>(Data);
+                    if (brands is not null)
+                    {
+                        await Context.productBrands.AddRangeAsync(brands);
+                    }
+                   
+                }
+                
                 if (Context.Products != null && !Context.Products.Any())
                 {
                     var Data = File.ReadAllText("../Store.Repository/SeedData/products.json");
@@ -43,8 +46,10 @@ namespace Store.Repository
                     {
                         await Context.Products.AddRangeAsync(productss);
                     }
+                    
                 }
                 await Context.SaveChangesAsync();
+
 
             }
             catch (Exception ex) 

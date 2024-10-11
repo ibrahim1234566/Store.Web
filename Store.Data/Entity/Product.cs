@@ -12,10 +12,11 @@ namespace Store.Data.Entity
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public decimal price { get; set; }
+        public ProductBrand Brand { get; set; }
         public int BrandId { get; set; }
-        public ProductBrand productBrand { get; set; }
+        public ProductType Type { get; set; }
         public int TypeId { get; set; }
-        public ProductType productType { get; set; }
+        
 
     }
 }

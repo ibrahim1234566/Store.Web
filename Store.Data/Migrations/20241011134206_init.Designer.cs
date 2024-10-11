@@ -12,7 +12,7 @@ using Store.Data.Context;
 namespace Store.Data.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20241010233854_init")]
+    [Migration("20241011134206_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -57,17 +57,11 @@ namespace Store.Data.Migrations
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("productBrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("productTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("productBrandId");
+                    b.HasIndex("BrandId");
 
-                    b.HasIndex("productTypeId");
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Products");
                 });
@@ -114,21 +108,21 @@ namespace Store.Data.Migrations
 
             modelBuilder.Entity("Store.Data.Entity.Product", b =>
                 {
-                    b.HasOne("Store.Data.Entity.ProductBrand", "productBrand")
+                    b.HasOne("Store.Data.Entity.ProductBrand", "Brand")
                         .WithMany()
-                        .HasForeignKey("productBrandId")
+                        .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Store.Data.Entity.ProductType", "productType")
+                    b.HasOne("Store.Data.Entity.ProductType", "Type")
                         .WithMany()
-                        .HasForeignKey("productTypeId")
+                        .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("productBrand");
+                    b.Navigation("Brand");
 
-                    b.Navigation("productType");
+                    b.Navigation("Type");
                 });
 #pragma warning restore 612, 618
         }
