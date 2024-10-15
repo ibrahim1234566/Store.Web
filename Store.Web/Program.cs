@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Store.Data.Context;
 using Store.Repository.Interfaces;
 using Store.Repository.UnitOfWork;
+using Store.Service.Services.Products;
+using Store.Service.Services.Products.Dtos;
 using Store.Web.Helper;
 
 namespace Store.Web
@@ -20,6 +22,8 @@ namespace Store.Web
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped <IUnitOfWork,UnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(ProductProfile));
+            builder.Services.AddScoped<IProductService,ProductService>();
             builder.Services.AddDbContext<StoreDbContext>(options=>
             {
 
@@ -42,7 +46,10 @@ namespace Store.Web
             app.UseAuthorization();
             await ApplySeeding.ApplySeedingAsync(app);
 
+            app.UseStaticFiles();
+
             app.MapControllers();
+            
 
             app.Run();
         }
