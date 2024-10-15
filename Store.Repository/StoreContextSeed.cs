@@ -17,16 +17,7 @@ namespace Store.Repository
         {
             try
             {
-                if (Context.productTypes != null && !Context.productTypes.Any())
-                {
-                    var Data = File.ReadAllText("../Store.Repository/SeedData/types.json");
-                    var Types = JsonSerializer.Deserialize<List<ProductType>>(Data);
-                    if (Types is not null)
-                    {
-                        await Context.productTypes.AddRangeAsync(Types);
-                    }
-                  
-                }
+               
                 if (Context.productBrands!=null && !Context.productBrands.Any())
                 {
                     var Data = File.ReadAllText("../Store.Repository/SeedData/brands.json");
@@ -37,7 +28,18 @@ namespace Store.Repository
                     }
                    
                 }
-                
+                if (Context.productTypes != null && !Context.productTypes.Any())
+                {
+                    var Data = File.ReadAllText("../Store.Repository/SeedData/types.json");
+                    var Types = JsonSerializer.Deserialize<List<ProductType>>(Data);
+                    if (Types is not null)
+                    {
+                        await Context.productTypes.AddRangeAsync(Types);
+                    }
+                    await Context.SaveChangesAsync();
+
+                }
+
                 if (Context.Products != null && !Context.Products.Any())
                 {
                     var Data = File.ReadAllText("../Store.Repository/SeedData/products.json");
