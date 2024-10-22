@@ -79,8 +79,9 @@ namespace Store.Service.Services.Products
             {
                 throw new Exception("Id IS NULL");
             }
+            var specs = new ProductWithSpecification(id);
 
-            var product = await _unitOfWork.Repository<Product, int>().GetByIdAsync(id.Value);
+            var product = await _unitOfWork.Repository<Product, int>().GetWithSpecificationByIdAsync(specs);
 
             if (product == null)
             {

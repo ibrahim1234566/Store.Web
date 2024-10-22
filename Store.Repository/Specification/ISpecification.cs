@@ -16,5 +16,11 @@ namespace Store.Repository.Specification
         ///
         ///for includes
         ///
+       
+        ///
+        ///order
+        ///
+        Expression<Func<T,object>> OrderBy { get; }
+        Expression<Func<T, object>> OrderByDescending { get; }
     }
 }
