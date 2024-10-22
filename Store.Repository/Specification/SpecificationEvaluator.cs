@@ -25,6 +25,11 @@ namespace Store.Repository.Specification
             {
                 query = query.OrderBy(specs.OrderByDescending);
             }
+            if (specs.IsPaginated)
+            {
+                query = query.Skip(specs.Skip).Take(specs.Take);
+
+            }
             query = specs.Includes.Aggregate(query,(current,includeEx)=> current.Include(includeEx));
             
             return query;
