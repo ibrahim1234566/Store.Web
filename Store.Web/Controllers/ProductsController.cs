@@ -26,7 +26,7 @@ namespace Store.Web.Controllers
         public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetAllProducts([FromQuery]ProductSpecification productSpecification)
             =>Ok(await _productService.GetAllProductsAsync(productSpecification));
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProductById(int? id)
+        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProductById([FromQuery] int? id)
             => Ok(await _productService.GetProductByIdAsync(id));
     }
 }
