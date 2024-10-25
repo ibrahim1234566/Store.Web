@@ -50,6 +50,16 @@ namespace Store.Repository
                     }
                     
                 }
+                if (Context.deliveryMethods != null && !Context.deliveryMethods.Any())
+                {
+                    var Data = File.ReadAllText("../Store.Repository/SeedData/delivery.json");
+                    var DelveryMethod = JsonSerializer.Deserialize<List<DeliveryMethod>>(Data);
+                    if (DelveryMethod is not null)
+                    {
+                        await Context.deliveryMethods.AddRangeAsync(DelveryMethod);
+                    }
+
+                }
                 await Context.SaveChangesAsync();
 
 

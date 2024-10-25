@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using Store.Data.Context;
 using Store.Repository.Interfaces;
 using Store.Repository.UnitOfWork;
@@ -31,7 +32,23 @@ namespace Store.Web
 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("myconn"));
             });
+            builder.Services.AddDbContext<StoreIdentityDbContext>(options =>
+            {
+
+                options.UseSqlServer(builder.Configuration.GetConnectionString("myconn2"));
+            });
+            builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+            {
+                var configration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(configration);
+
+
+            }
+                
+                
+                );
             builder.Services.ApplicationServices();
+            builder.Services.AddIdentityService();
 
 
 
@@ -45,7 +62,7 @@ namespace Store.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<ExeptionMiddleware>();
+           app.UseMiddleware<ExeptionMiddleware>();
 
             app.UseAuthorization();
             await ApplySeeding.ApplySeedingAsync(app);
