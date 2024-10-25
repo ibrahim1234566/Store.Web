@@ -17,7 +17,7 @@ namespace Store.Web.Extensions
             services.AddAutoMapper(typeof(ProductProfile));
             services.AddScoped<IProductService, ProductService>();
             services.AddSingleton<ICacheService, CacheService>();
-            /*  services.Configure<ApiBehaviorOptions>(options =>
+              services.Configure<ApiBehaviorOptions>(options =>
               {
                   options.InvalidModelStateResponseFactory = actionContext =>
                   {
@@ -33,7 +33,7 @@ namespace Store.Web.Extensions
                       };
                       return new BadRequestObjectResult(errorResponse);
                   };            
-              });*/
+              });
             return services;
         }
     }
