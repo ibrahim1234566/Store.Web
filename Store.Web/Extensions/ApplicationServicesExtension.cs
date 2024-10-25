@@ -17,23 +17,23 @@ namespace Store.Web.Extensions
             services.AddAutoMapper(typeof(ProductProfile));
             services.AddScoped<IProductService, ProductService>();
             services.AddSingleton<ICacheService, CacheService>();
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    var error = actionContext.ModelState
-                    .Where(model => model.Value?.Errors.Count > 0)
-                    .SelectMany(model => model.Value?.Errors)
-                    .Select(error => error.ErrorMessage)
-                    .ToList();
-                    var errorResponse = new ValidationErrorResponse
-                    {
-                        Errors = error
+            /*  services.Configure<ApiBehaviorOptions>(options =>
+              {
+                  options.InvalidModelStateResponseFactory = actionContext =>
+                  {
+                      var error = actionContext.ModelState
+                      .Where(model => model.Value?.Errors.Count > 0)
+                      .SelectMany(model => model.Value?.Errors)
+                      .Select(error => error.ErrorMessage)
+                      .ToList();
+                      var errorResponse = new ValidationErrorResponse
+                      {
+                          Errors = error
 
-                    };
-                    return new BadRequestObjectResult(errorResponse);
-                };            
-            });
+                      };
+                      return new BadRequestObjectResult(errorResponse);
+                  };            
+              });*/
             return services;
         }
     }

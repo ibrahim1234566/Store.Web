@@ -56,7 +56,7 @@ namespace Store.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<ExeptionMiddleware>();
+          //  app.UseMiddleware<ExeptionMiddleware>();
 
             app.UseAuthorization();
             await ApplySeeding.ApplySeedingAsync(app);
