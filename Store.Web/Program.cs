@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using Store.Data.Context;
 using Store.Repository.Interfaces;
 using Store.Repository.UnitOfWork;
@@ -31,6 +32,16 @@ namespace Store.Web
 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("myconn"));
             });
+            builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+            {
+                var configration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(configration);
+
+
+            }
+                
+                
+                );
             builder.Services.ApplicationServices();
 
 
