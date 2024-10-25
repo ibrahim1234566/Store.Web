@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Store.Service.HandleResponse;
 using Store.Service.Services.CacheService;
+using Store.Repository.Basket;
+using Store.Service.Services.BasketService.Dtos;
+using Store.Service.Services.BasketService;
 
 namespace Store.Web.Extensions
 {
@@ -17,7 +20,11 @@ namespace Store.Web.Extensions
             services.AddAutoMapper(typeof(ProductProfile));
             services.AddScoped<IProductService, ProductService>();
             services.AddSingleton<ICacheService, CacheService>();
-              services.Configure<ApiBehaviorOptions>(options =>
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketService, BasketService>();    
+            services.AddAutoMapper(typeof(BasketProfile));
+
+            services.Configure<ApiBehaviorOptions>(options =>
               {
                   options.InvalidModelStateResponseFactory = actionContext =>
                   {
